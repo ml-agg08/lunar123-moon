@@ -11,4 +11,4 @@ For landslides, look for three main features along a slope: first, a steep, fres
 
 By using this approach—spotting sharp-edged rocks, identifying the most obvious feature, and tagging accordingly—you’ll be able to annotate lunar boulders and landslides quickly and consistently.
 
-#ISRO
+#AIN WEDS ANAND
