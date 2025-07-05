@@ -10,3 +10,5 @@ Now examine surface-level features. A very bright or shiny spot on the boulder s
 For landslides, look for three main features along a slope: first, a steep, fresh-looking lip at the top (called the headscarp); second, a narrow, smooth, or streaky area running down the slope (this is the track); and third, a lumpy, disturbed pile of material at the bottom (this is the toe). If you see all three, draw a box around the full area and tag it as a landslide.
 
 By using this approach—spotting sharp-edged rocks, identifying the most obvious feature, and tagging accordingly—you’ll be able to annotate lunar boulders and landslides quickly and consistently.
+
+#ISRO
