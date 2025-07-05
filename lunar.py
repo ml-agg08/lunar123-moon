@@ -7,11 +7,24 @@ from timm.models.layers import DropPath
 # ----------------------------------------------------------------------------------
 # ClassificationModel (Chandrayaan-2 Ready: Metadata-Aware)
 # ----------------------------------------------------------------------------------
-# Changes made for full Chandrayaan-2 pipeline compatibility:
-# - Accepts multiple input channels (OHRC + optional metadata: slope, sun elevation, incidence)
-# - Default in_channel = 3 (grayscale + 2 metadata maps)
-# - Still binary classification: predicts presence of boulders or landslide per tile
-# - Input = 224x224 patches (preprocessed from .img and .oat metadata)
+# ✅ Context:
+# This model framework was provided as a template by a teammate, with instructions
+# to modify key architectural elements based on dataset properties like:
+#   - Number of input channels (e.g. OHRC + slope + sun elevation)
+#   - Kernel sizes, padding, or model depth (based on tile resolution)
+#
+# ✅ Dataset Handling:
+# Chandrayaan-2 OHRC images are massive (~50GB per frame). Each image is sliced
+# into 224x224 patches, each paired with annotations and metadata for:
+#   - Latitude, longitude (from .oat)
+#   - Sun azimuth & elevation (from .spm)
+#   - Solar incidence angle (derived from elevation)
+#   - Slope/Digital Terrain Model (from DTM raster if used)
+#
+# ✅ Model Design:
+# - Accepts stacked multi-channel image tiles (e.g., grayscale + sun elevation + slope)
+# - Binary classification: 1 = boulder/landslide, 0 = none
+# - Output = sigmoid(logits) for per-tile probability
 # ----------------------------------------------------------------------------------
 
 class ConvRelu(nn.Module):
