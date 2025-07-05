@@ -20,7 +20,6 @@ from timm.models.layers import DropPath
 #   - Sun azimuth & elevation (from .spm)
 #   - Solar incidence angle (derived from elevation)
 #   - Slope/Digital Terrain Model (from DTM raster if used)
-# Work Developed by ml_agg & 51riu5
 # Model Design:
 # - Accepts stacked multi-channel image tiles (e.g., grayscale + sun elevation + slope)
 # - Binary classification: 1 = boulder/landslide, 0 = none
