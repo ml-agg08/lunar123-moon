@@ -5,18 +5,13 @@ import torch.nn.functional as F
 from timm.models.layers import DropPath
 
 # ----------------------------------------------------------------------------------
-# ClassificationModel (Customized for Chandrayaan-2 Lunar Boulder/Landslide Detection)
+# ClassificationModel (Chandrayaan-2 Ready: Metadata-Aware)
 # ----------------------------------------------------------------------------------
-# This model has been adapted for:
-# - Grayscale 1-channel lunar tiles (OHRC/TMC)
-# - Binary classification (detect presence of boulders/landslides in a tile)
-# - Input size of 224x224 tiles
-# - Output is a single probability per tile
-#
-# Key changes made:
-# - in_channel=1: for grayscale moon images
-# - num_classes=1: for binary output (1 = boulder/landslide, 0 = none)
-# - Modular _make_block(): simplifies repeated convolutional structures
+# Changes made for full Chandrayaan-2 pipeline compatibility:
+# - Accepts multiple input channels (OHRC + optional metadata: slope, sun elevation, incidence)
+# - Default in_channel = 3 (grayscale + 2 metadata maps)
+# - Still binary classification: predicts presence of boulders or landslide per tile
+# - Input = 224x224 patches (preprocessed from .img and .oat metadata)
 # ----------------------------------------------------------------------------------
 
 class ConvRelu(nn.Module):
@@ -74,7 +69,7 @@ class MultiScaleConvNxt(nn.Module):
 
 
 class ClassificationModel(nn.Module):
-    def __init__(self, in_channel=1, num_classes=1, channels=[16, 32, 64, 96, 128], num_layers=2):
+    def __init__(self, in_channel=3, num_classes=1, channels=[16, 32, 64, 96, 128], num_layers=2):
         super().__init__()
         self.pool = nn.MaxPool2d(2, 2)
         self.avgpool = nn.AdaptiveAvgPool2d(1)
@@ -102,9 +97,9 @@ class ClassificationModel(nn.Module):
 if __name__ == '__main__':
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Test with grayscale lunar tiles (batch of 8 tiles, 1 channel, 224x224 each)
-    model = ClassificationModel(in_channel=1, num_classes=1)
+    # Simulate lunar tile input (3 channels = image + sun elev + incidence)
+    model = ClassificationModel(in_channel=3, num_classes=1)
 
-    dummy_input = torch.randn(8, 1, 224, 224)
+    dummy_input = torch.randn(8, 3, 224, 224)
     output = model(dummy_input)
     print("Model Output Shape:", output.shape)
