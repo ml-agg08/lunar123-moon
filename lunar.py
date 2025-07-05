@@ -7,13 +7,13 @@ from timm.models.layers import DropPath
 # ----------------------------------------------------------------------------------
 # ClassificationModel (Chandrayaan-2 Ready: Metadata-Aware)
 # ----------------------------------------------------------------------------------
-# ✅ Context:
+# Context:
 # This model framework was provided as a template by a teammate, with instructions
 # to modify key architectural elements based on dataset properties like:
 #   - Number of input channels (e.g. OHRC + slope + sun elevation)
 #   - Kernel sizes, padding, or model depth (based on tile resolution)
 #
-# ✅ Dataset Handling:
+# Dataset Handling:
 # Chandrayaan-2 OHRC images are massive (~50GB per frame). Each image is sliced
 # into 224x224 patches, each paired with annotations and metadata for:
 #   - Latitude, longitude (from .oat)
@@ -21,7 +21,7 @@ from timm.models.layers import DropPath
 #   - Solar incidence angle (derived from elevation)
 #   - Slope/Digital Terrain Model (from DTM raster if used)
 #
-# ✅ Model Design:
+# Model Design:
 # - Accepts stacked multi-channel image tiles (e.g., grayscale + sun elevation + slope)
 # - Binary classification: 1 = boulder/landslide, 0 = none
 # - Output = sigmoid(logits) for per-tile probability
